@@ -30,6 +30,8 @@ func Connect() (*gousb.InEndpoint, *gousb.OutEndpoint, func(), error) {
 		log.Println("-- Try to find device with 1314,1520")
 		dev, err = ctx.OpenDeviceWithVIDPID(0x1314, 0x1520)
 		if err != nil {
+			log.Println("-- Error with device")
+			log.Println(err)
 			return nil, nil, nil, err
 		}
 		if dev == nil {

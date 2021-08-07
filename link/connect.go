@@ -2,12 +2,14 @@ package link
 
 import (
 	"errors"
+	"log"
 	"time"
 
 	"github.com/google/gousb"
 )
 
 func Connect() (*gousb.InEndpoint, *gousb.OutEndpoint, func(), error) {
+	log.Println("USB.connect")
 	cleanTask := make([]func(), 0)
 	defer func() {
 		for _, task := range cleanTask {
@@ -25,6 +27,7 @@ func Connect() (*gousb.InEndpoint, *gousb.OutEndpoint, func(), error) {
 	)
 
 	for {
+		log.Println("-- Try to find device with 1314,1520")
 		dev, err = ctx.OpenDeviceWithVIDPID(0x1314, 0x1520)
 		if err != nil {
 			return nil, nil, nil, err
@@ -32,6 +35,7 @@ func Connect() (*gousb.InEndpoint, *gousb.OutEndpoint, func(), error) {
 		if dev == nil {
 			waitCount--
 			if waitCount < 0 {
+				log.Println("-- Could not find a device")
 				return nil, nil, nil, errors.New("Could not find a device")
 			}
 			time.Sleep(3 * time.Second)

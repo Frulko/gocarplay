@@ -155,7 +155,7 @@ func startCarPlay(data []byte) {
 	if err := json.Unmarshal(data, &size); err != nil {
 		return
 	}
-
+	log.Println("-- startCarPlay")
 	if err := link.Init(); err != nil {
 		return
 	}

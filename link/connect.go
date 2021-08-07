@@ -45,6 +45,7 @@ func Connect() (*gousb.InEndpoint, *gousb.OutEndpoint, func(), error) {
 		break
 	}
 
+	log.Println("-- Here launch")
 	intf, done, err := dev.DefaultInterface()
 	if err != nil {
 		return nil, nil, nil, err
